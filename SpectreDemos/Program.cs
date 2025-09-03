@@ -195,37 +195,56 @@ using SpectreDemos;
 //	});
 
 // Lesson 13 - Live Displays
-List<CourseInfo> courses = [];
+//List<CourseInfo> courses = [];
 
-var table = new Table().Centered();
+//var table = new Table().Centered();
 
-table.AddColumn("Title");
-table.AddColumn("Lessons");
-table.AddColumn("Hours");
-table.ShowFooters();
+//table.AddColumn("Title");
+//table.AddColumn("Lessons");
+//table.AddColumn("Hours");
+//table.ShowFooters();
 
-await AnsiConsole.Live(table)
-	.StartAsync(async ctx =>
+//await AnsiConsole.Live(table)
+//	.StartAsync(async ctx =>
+//	{
+//		for (int i = 1; i < 32; i++)
+//		{
+//			var course = await Helpers.GetTypedApiDataAsync<CourseInfo>(
+//			$"https://thesampleapi.com/courses/{i}");
+//			courses.Add(course);
+
+//			table.AddRow(
+//				course.CourseName,
+//				course.CourseLessonCount.ToString(),
+//				course.CourseLengthInHours.ToString());
+
+//			table.Columns[0].Footer($"[grey]{courses.Count} courses[/]");
+//			table.Columns[1].Footer($"[grey]{courses.Sum(c => c.CourseLessonCount).ToString()}[/]");
+//			table.Columns[2].Footer($"[grey]{courses.Sum(c => c.CourseLengthInHours):0.0} hours[/]");
+
+//			ctx.Refresh();
+//			await Task.Delay(100);
+//		}
+
+//	});
+
+// Lesson 14 - Emojis
+//// https://spectreconsole.net/appendix/emojis
+//AnsiConsole.MarkupLine("I like :baseball: and :american_football:");
+
+//AnsiConsole.WriteLine($"Hello {Emoji.Known.WorldMap}");
+
+//var displayText = "I am normal. :zany_face:\n";
+//AnsiConsole.Write(Emoji.Replace(displayText));
+
+// Lesson 15 - Custom Spinners
+
+AnsiConsole.Status()
+	.Spinner(new TestSpinner())
+	.SpinnerStyle(Style.Parse("green"))
+	.Start("Thinking...", ctx =>
 	{
-		for (int i = 1; i < 32; i++)
-		{
-			var course = await Helpers.GetTypedApiDataAsync<CourseInfo>(
-			$"https://thesampleapi.com/courses/{i}");
-			courses.Add(course);
-
-			table.AddRow(
-				course.CourseName,
-				course.CourseLessonCount.ToString(),
-				course.CourseLengthInHours.ToString());
-
-			table.Columns[0].Footer($"[grey]{courses.Count} courses[/]");
-			table.Columns[1].Footer($"[grey]{courses.Sum(c => c.CourseLessonCount).ToString()}[/]");
-			table.Columns[2].Footer($"[grey]{courses.Sum(c => c.CourseLengthInHours):0.0} hours[/]");
-
-			ctx.Refresh();
-			await Task.Delay(100);
-		}
-
+		Thread.Sleep(10000);
 	});
 
 Console.ReadLine();
